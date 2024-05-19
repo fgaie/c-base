@@ -103,3 +103,13 @@ void arena_reset(Arena *a) {
   arena_free(a->next);
   a->top = 0;
 }
+
+u64 arena_size(const Arena *a) {
+  u64 res = 0;
+  while (a != NULL) {
+    res += a->top;
+    a = a->next;
+  }
+
+  return res;
+}

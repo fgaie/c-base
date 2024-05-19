@@ -1,0 +1,4 @@
+.cache/
+build/
+lib.so
+compile_commands.json

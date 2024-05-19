@@ -109,7 +109,7 @@ char *arena_fmt(Arena *a, const char *fmt, ...) {
   va_list ap;
   va_list copy;
   va_start(ap, fmt);
-  va_copy(ap, copy);
+  va_copy(copy, ap);
 
   int size = vsnprintf(NULL, 0, fmt, ap);
   if (size < 0) {

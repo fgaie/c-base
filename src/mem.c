@@ -108,8 +108,8 @@ void arena_reset(Arena *a) {
 char *arena_fmt(Arena *a, const char *fmt, ...) {
   va_list ap;
   va_list copy;
-  va_copy(ap, copy);
   va_start(ap, fmt);
+  va_copy(ap, copy);
 
   int size = vsnprintf(NULL, 0, fmt, ap);
   if (size < 0) {
@@ -118,7 +118,7 @@ char *arena_fmt(Arena *a, const char *fmt, ...) {
   }
 
   char *res = arena_allocz(a, size + 1);
-  vsnprintf(res, size, fmt, copy);
+  vsnprintf(res, size + 1, fmt, copy);
 
   va_end(ap);
   va_end(copy);

@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -102,6 +103,27 @@ void arena_pop(Arena *a, u64 size) {
 void arena_reset(Arena *a) {
   arena_free(a->next);
   a->top = 0;
+}
+
+char *arena_fmt(Arena *a, const char *fmt, ...) {
+  va_list ap;
+  va_list copy;
+  va_copy(ap, copy);
+  va_start(ap, fmt);
+
+  int size = vsnprintf(NULL, 0, fmt, ap);
+  if (size < 0) {
+    fprintf(stderr, "Could not format `%s`: %s\n", fmt, strerror(errno));
+    return "";
+  }
+
+  char *res = arena_allocz(a, size + 1);
+  vsnprintf(res, size, fmt, copy);
+
+  va_end(ap);
+  va_end(copy);
+
+  return res;
 }
 
 u64 arena_size(const Arena *a) {

@@ -11,6 +11,7 @@
 struct Arena {
   u8 data[ARENA_SIZE];
   u64 top;
+  u64 last;
 
   Arena *next;
 };
@@ -24,6 +25,7 @@ Arena *arena_new(void) {
   }
 
   res->top = 0;
+  res->last = -1;
   res->next = NULL;
 
   return res;
@@ -61,6 +63,7 @@ void *arena_alloc(Arena *a, u64 size) {
   }
 
   void *res = &a->data[a->top];
+  a->last = a->top;
   a->top += size;
   return res;
 }
@@ -70,6 +73,25 @@ void *arena_allocz(Arena *a, u64 size) {
   if (res != NULL) {
     memset(res, 0, size);
   }
+  return res;
+}
+
+void *arena_realloc(Arena *a, void *p, u64 size) {
+  if (a == NULL) {
+    return realloc(p, size);
+  }
+
+  if (p == &a->data[a->last] && size <= ARENA_SIZE - a->last) {
+    a->top = a->last + size;
+    return p;
+  }
+
+  void *res = arena_alloc(a, size);
+  if (res != NULL) {
+    // souds dangerous
+    memcpy(res, p, size);
+  }
+
   return res;
 }
 

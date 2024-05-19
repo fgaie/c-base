@@ -17,4 +17,6 @@ void arena_pop(Arena *, u64 size);
 
 void arena_reset(Arena *);
 
+u64 arena_size(const Arena *);
+
 #endif // BASE_MEM_H

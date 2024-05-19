@@ -19,7 +19,7 @@ lib$(NAME).a: $(OBJECTS)
 lib$(NAME).so: $(OBJECTS)
 	$(AR) rcs $@ $^
 
-lib$(BUILD_DIR)/%.o: src/%.c include/$(NAME)/%.h | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: src/%.c include/$(NAME)/%.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(BUILD_DIR):
@@ -27,4 +27,4 @@ $(BUILD_DIR):
 
 .PHONY: clean
 clean:
-	$(RM) -r $(OUT_FILE) $(BUILD_DIR)
+	$(RM) -r $(ALL) $(BUILD_DIR)

@@ -4,10 +4,24 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: make release
-      - uses: actions/upload-artifact@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Library
+        run: make -B
+
+      - name: Generate Artifacts
+        run: |
+          mkdir -p release/lib
+          cp -vr include release
+          cp -v libflo.a release/lib/
+          cp -v libflo.so release/lib/
+          tar -czvf release.tar.gz release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          path: base.tar
+          name: release.tar.gz
+          path: release.tar.gz
           if-no-files-found: error
           overwrite: true

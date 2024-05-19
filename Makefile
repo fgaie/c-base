@@ -1,4 +1,5 @@
-OUT_FILE ?= lib.so
+NAME := "base"
+OUT_FILE ?= lib.a
 BUILD_DIR ?= build
 
 CC ?= cc
@@ -14,11 +15,20 @@ OUT_REQS := $(wildcard src/*.c)
 $(OUT_FILE): $(OUT_REQS:src/%.c=$(BUILD_DIR)/%.o)
 	$(AR) rcs $@ $^
 
-$(BUILD_DIR)/%.o: src/%.c include/base/%.h | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: src/%.c include/$(NAME)/%.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(BUILD_DIR):
 	mkdir -p $@
+
+.PHONY: release
+release: $(NAME).tar
+
+$(NAME).tar: $(OUT_FILE) include
+	mkdir $(NAME)
+	cp -r $^ $(NAME)
+	tar cvf $@ $(NAME)
+	$(RM) -r $(NAME)
 
 .PHONY: clean
 clean:

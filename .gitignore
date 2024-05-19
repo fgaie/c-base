@@ -1,4 +1,5 @@
 .cache/
 build/
-lib.so
+lib.a
 compile_commands.json
+base.tar

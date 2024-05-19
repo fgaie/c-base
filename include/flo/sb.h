@@ -13,6 +13,9 @@ typedef struct {
   u64 cap;
 } StringBuilder;
 
+StringBuilder sb_formatv(Arena *, const char *fmt, va_list);
+StringBuilder sb_format(Arena *, const char *fmt, ...);
+
 RES sb_pushfv(Arena *, StringBuilder *, const char *fmt, va_list);
 RES sb_pushf(Arena *, StringBuilder *, const char *fmt, ...);
 

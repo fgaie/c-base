@@ -131,3 +131,21 @@ RES sb_pushfv(Arena *a, StringBuilder *sb, const char *fmt_cstr, va_list ap) {
 
   return OK;
 }
+
+StringBuilder sb_format(Arena *a, const char *fmt, ...) {
+  va_list ap;
+  va_start(ap, fmt);
+  StringBuilder res = sb_formatv(a, fmt, ap);
+  va_end(ap);
+  return res;
+}
+
+StringBuilder sb_formatv(Arena *a, const char *fmt, va_list ap) {
+  StringBuilder sb = {0};
+  RES r = sb_pushfv(a, &sb, fmt, ap);
+  if (r != OK) {
+    fprintf(stderr, "Could not format string `%s`\n", fmt);
+  }
+
+  return (StringBuilder){0};
+}

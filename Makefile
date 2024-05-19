@@ -3,7 +3,7 @@ BUILD_DIR ?= build
 
 CC ?= cc
 CFLAGS ?= -Wall -Wextra -Wpedantic -Werror -ggdb
-CFLAGS += -std=c11 -Iinclude
+CFLAGS += -O2 -std=c11 -Iinclude
 
 ALL := $(OUT_FILE)
 

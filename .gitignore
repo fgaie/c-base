@@ -1,5 +1,6 @@
 .cache/
 build/
-lib.a
+libflo.a
+libflo.so
 compile_commands.json
 base.tar

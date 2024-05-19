@@ -1,4 +1,4 @@
-NAME := "base"
+NAME := base
 OUT_FILE ?= lib.a
 BUILD_DIR ?= build
 

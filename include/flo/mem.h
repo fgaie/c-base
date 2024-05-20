@@ -19,7 +19,7 @@ void arena_reset(Arena *);
 
 char *arena_fmt(Arena *a, const char *fmt, ...);
 
-#define VA_MIN_SIZE
+#define VA_MIN_SIZE 8
 #define arena_va_append(a, l, x)                                               \
   do {                                                                         \
     if ((l)->len >= (l)->cap) {                                                \

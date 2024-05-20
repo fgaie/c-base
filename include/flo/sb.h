@@ -13,6 +13,8 @@ typedef struct {
   u64 cap;
 } StringBuilder;
 
+char *sb_as_cstr(Arena *, StringBuilder *);
+
 StringBuilder sb_formatv(Arena *, const char *fmt, va_list);
 StringBuilder sb_format(Arena *, const char *fmt, ...);
 

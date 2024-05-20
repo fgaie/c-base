@@ -30,6 +30,8 @@ StringView sv_chop_right(StringView *, u64 len);
 StringView sv_chop_right_while(StringView *, bool (*predicate)(char));
 bool sv_chop_right_s(StringView *, StringView suffix);
 
+StringView sv_chop_to(StringView *, StringView sep);
+
 bool sv_equal(StringView, StringView);
 bool sv_equal_ignorecase(StringView, StringView);
 

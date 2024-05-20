@@ -71,6 +71,22 @@ bool sv_chop_right_s(StringView *sv, StringView prefix) {
   return false;
 }
 
+StringView sv_chop_to(StringView *sv, StringView sep) {
+  StringView res = { sv->data, 0 };
+
+  while (sv->size > 0 && !sv_starts_with(*sv, sep)) {
+    res.size += 1;
+    sv->size -= 1;
+    sv->data += 1;
+  }
+
+  if (sv_starts_with(*sv, sep)) {
+    sv_chop_left(sv, sep.size);
+  }
+
+  return res;
+}
+
 static bool isspace_(char c) {
   return isspace(c);
 }

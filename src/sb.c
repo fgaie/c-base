@@ -31,6 +31,16 @@ static RES sb_grow(Arena *a, StringBuilder *sb, u64 want) {
   return OK;
 }
 
+char *sb_as_cstr(Arena *a, StringBuilder *sb) {
+  RES r = sb_grow(a, sb, sb->size + 1);
+  if (r != OK) {
+    return NULL;
+  }
+
+  sb->data[sb->size] = '\0';
+  return sb->data;
+}
+
 RES sb_push_sv(Arena *a, StringBuilder *sb, StringView s) {
   TRY(sb_grow(a, sb, sb->size + s.size));
 

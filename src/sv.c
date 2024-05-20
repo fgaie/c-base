@@ -182,3 +182,24 @@ i64 sv_to_i64(StringView sv) {
   u64 res = sv_to_u64(sv);
   return negative ? -res : res;
 }
+
+static bool not_slash(char c) {
+  return c != '/';
+}
+
+StringView sv_file_name(StringView sv) {
+  return sv_chop_right_while(&sv, not_slash);
+}
+
+StringView sv_file_ext(StringView sv) {
+  StringView file_name = sv_file_name(sv);
+
+  u64 i;
+  for (i = file_name.size - 1; i > 0; i -= 1) {
+    if (file_name.data[i] == '.') {
+      return (StringView) { file_name.data + i + 1, file_name.size - i - 1 };
+    }
+  }
+
+  return (StringView){0};
+}

@@ -41,4 +41,7 @@ bool sv_ends_with(StringView, StringView suffix);
 i64 sv_to_i64(StringView);
 u64 sv_to_u64(StringView);
 
+StringView sv_file_name(StringView);
+StringView sv_file_ext(StringView);
+
 #endif // BASE_SV_H

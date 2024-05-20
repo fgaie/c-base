@@ -183,22 +183,33 @@ i64 sv_to_i64(StringView sv) {
   return negative ? -res : res;
 }
 
-static bool not_slash(char c) {
-  return c != '/';
-}
-
 StringView sv_file_name(StringView sv) {
-  return sv_chop_right_while(&sv, not_slash);
+  u64 last = -1;
+  for (u64 i = 0; i < sv.size; i += 1) {
+    if (sv.data[i] == '/') {
+      last = i;
+    }
+  }
+
+  if (last >= 0) {
+    return sv_from_parts(sv.data + last + 1, sv.size - last - 1);
+  }
+
+  return sv;
 }
 
 StringView sv_file_ext(StringView sv) {
   StringView file_name = sv_file_name(sv);
 
-  u64 i;
-  for (i = file_name.size - 1; i > 0; i -= 1) {
+  u64 last = -1;
+  for (u64 i = 0; i < file_name.size; i += 1) {
     if (file_name.data[i] == '.') {
-      return (StringView) { file_name.data + i + 1, file_name.size - i - 1 };
+      last = i;
     }
+  }
+
+  if (last > 0) {
+    return sv_from_parts(file_name.data + last + 1, file_name.size - last - 1);
   }
 
   return (StringView){0};

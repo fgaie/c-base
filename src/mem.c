@@ -88,7 +88,7 @@ void *arena_realloc(Arena *a, void *p, u64 size) {
   }
 
   void *res = arena_alloc(a, size);
-  if (res != NULL) {
+  if (p != NULL && res != NULL) {
     // souds dangerous
     memcpy(res, p, size);
   }

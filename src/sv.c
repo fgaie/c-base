@@ -184,7 +184,7 @@ i64 sv_to_i64(StringView sv) {
 }
 
 StringView sv_file_name(StringView sv) {
-  u64 last = -1;
+  i64 last = -1;
   for (u64 i = 0; i < sv.size; i += 1) {
     if (sv.data[i] == '/') {
       last = i;
@@ -201,7 +201,7 @@ StringView sv_file_name(StringView sv) {
 StringView sv_file_ext(StringView sv) {
   StringView file_name = sv_file_name(sv);
 
-  u64 last = -1;
+  i64 last = -1;
   for (u64 i = 0; i < file_name.size; i += 1) {
     if (file_name.data[i] == '.') {
       last = i;

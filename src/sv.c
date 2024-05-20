@@ -17,7 +17,7 @@ StringView sv_chop_left(StringView *sv, u64 len) {
     len = sv->size;
   }
 
-  StringView res = { sv->data + len, sv->size - len };
+  StringView res = { sv->data, len };
   sv->data += len;
   sv->size -= len;
 
@@ -47,7 +47,7 @@ StringView sv_chop_right(StringView *sv, u64 len) {
     len = sv->size;
   }
 
-  StringView res = { sv->data, sv->size - len };
+  StringView res = { sv->data + sv->size - len, sv->size - len };
   sv->size -= len;
 
   return res;

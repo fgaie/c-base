@@ -7,7 +7,7 @@
 #include <flo.h>
 #include <flo/mem.h>
 
-#define ARENA_SIZE (1024 * 1024)
+#define ARENA_SIZE (1024 * 1024 * 100)
 
 struct Arena {
   u8 data[ARENA_SIZE];

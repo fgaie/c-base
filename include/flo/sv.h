@@ -2,6 +2,7 @@
 #define BASE_SV_H
 
 #include <flo.h>
+#include <flo/mem.h>
 
 typedef struct {
   const char *data;
@@ -17,6 +18,7 @@ typedef struct {
 
 StringView sv_from_parts(const char *data, u64 size);
 StringView sv_from_cstr(const char *cstr);
+char *sv_to_cstr(Arena *, StringView);
 
 StringView sv_trim_left(StringView);
 StringView sv_trim_right(StringView);
@@ -43,5 +45,6 @@ u64 sv_to_u64(StringView);
 
 StringView sv_file_name(StringView);
 StringView sv_file_ext(StringView);
+
 
 #endif // BASE_SV_H

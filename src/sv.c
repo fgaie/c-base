@@ -2,6 +2,8 @@
 #include <ctype.h>
 
 #include <flo.h>
+#include <flo/mem.h>
+
 #include <flo/sv.h>
 
 StringView sv_from_parts(const char *data, u64 size) {
@@ -10,6 +12,14 @@ StringView sv_from_parts(const char *data, u64 size) {
 
 StringView sv_from_cstr(const char *cstr) {
   return sv_from_parts(cstr, strlen(cstr));
+}
+
+char *sv_to_cstr(Arena *a, StringView sv) {
+  char *res = arena_allocz(a, sv.size + 1);
+  if (sv.size > 0) {
+    memcpy(res, sv.data, sv.size);
+  }
+  return res;
 }
 
 StringView sv_chop_left(StringView *sv, u64 len) {
